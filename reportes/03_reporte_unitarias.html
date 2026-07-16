@@ -1,0 +1,56 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>03. Reporte de pruebas unitarias</title><style>
+*{box-sizing:border-box}
+body{margin:0;background:#e9e9e9;font-family:Calibri,"Segoe UI",Arial,sans-serif;color:#222;line-height:1.5}
+.page{max-width:960px;margin:26px auto 60px;background:#ffffff;padding:46px 56px;border:1px solid #c9c9c9;box-shadow:0 1px 4px rgba(0,0,0,.15)}
+.folio{text-align:right;font-size:11px;color:#666;margin-bottom:2px}
+.encabezado{border-bottom:3px double #333;padding-bottom:12px;margin-bottom:18px}
+.encabezado h1{margin:0 0 4px;font-size:20px;font-weight:700;color:#111}
+.encabezado .desc{font-size:13px;color:#444;margin:0}
+.datos-generales{width:100%;border-collapse:collapse;margin:14px 0 22px;font-size:13px}
+.datos-generales td{padding:5px 8px;border:1px solid #ccc;vertical-align:top}
+.datos-generales td.et{background:#f2f2f2;font-weight:700;width:190px}
+h2.tit{font-size:15px;margin:26px 0 8px;padding-bottom:4px;border-bottom:1px solid #999;color:#111}
+.resumen-tabla{width:100%;border-collapse:collapse;margin-bottom:6px;font-size:13px}
+.resumen-tabla th{background:#333;color:#fff;padding:7px 8px;text-align:left;font-weight:600}
+.resumen-tabla td{padding:7px 8px;border:1px solid #ccc}
+.conclusion{margin-top:10px;padding:10px 12px;border:1px solid #ccc;border-left:4px solid #555;background:#fafafa;font-size:13px}
+table.detalle{width:100%;border-collapse:collapse;margin-top:8px;font-size:12.5px}
+table.detalle th{background:#e6e6e6;color:#222;padding:7px 8px;text-align:left;border:1px solid #bbb;font-weight:700}
+table.detalle td{padding:7px 8px;border:1px solid #ccc;vertical-align:top}
+table.detalle tr:nth-child(even){background:#fafafa}
+.small{display:block;color:#666;font-size:11px;margin-top:3px}
+.estado{font-weight:700}
+.estado.ok{color:#1a6b3c}
+.estado.fail{color:#a3251d}
+.estado.warn{color:#946200}
+.estado.skip{color:#555}
+pre{white-space:pre-wrap;word-break:break-word;margin:0;background:#f5f5f0;border:1px solid #ddd;padding:6px 8px;max-height:210px;overflow:auto;font-family:Consolas,"Courier New",monospace;font-size:11.5px;color:#333}
+.pie{margin-top:34px;padding-top:12px;border-top:1px solid #ccc;font-size:11px;color:#777}
+@media print{body{background:#fff}.page{box-shadow:none;border:none;margin:0;padding:20px}}
+@media(max-width:800px){.page{padding:22px 18px}table.detalle{display:block;overflow-x:auto}}
+</style></head><body>
+<div class="page">
+  <div class="folio">Folio interno: PS-20260707-2232</div>
+  <div class="encabezado">
+    <h1>03. Reporte de pruebas unitarias</h1>
+    <p class="desc">Valida reglas pequenas del modelo Usuario sin depender de navegador ni base de datos.</p>
+  </div>
+  <table class="datos-generales">
+    <tr><td class="et">Categoria evaluada</td><td>Unitarias</td></tr>
+    <tr><td class="et">Proyecto evaluado</td><td>C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio</td></tr>
+    <tr><td class="et">Duracion del proceso</td><td>0.11 s</td></tr>
+  </table>
+  <h2 class="tit">1. Resumen de resultados</h2>
+  <table class="resumen-tabla">
+    <tr><th>Criterios evaluados</th><th>Aprobados</th><th>Fallos</th><th>Advertencias</th></tr>
+    <tr><td>13</td><td>12</td><td>0</td><td>1</td></tr>
+  </table>
+  <div class="conclusion">Las validaciones principales pasaron, pero existen advertencias tecnicas que conviene mejorar.</div>
+  <h2 class="tit">2. Detalle de verificaciones</h2>
+  <table class="detalle">
+    <thead><tr><th style="width:20%">Criterio</th><th style="width:11%">Estado</th><th style="width:23%">Detalle</th><th style="width:26%">Evidencia</th><th style="width:20%">Recomendacion</th></tr></thead>
+    <tbody><tr><td><strong>Carga de modelos para prueba unitaria</strong><span class="small">Severidad: Alta</span></td><td><span class="estado ok">APROBADO</span></td><td>Los modelos base fueron cargados sin conectar a la base de datos.</td><td><pre>ActiveRecord.php y Usuario.php cargados</pre></td><td>Mantener las validaciones separadas de consultas a BD para facilitar pruebas unitarias.</td></tr><tr><td><strong>Login vacio</strong><span class="small">Severidad: Alta</span></td><td><span class="estado ok">APROBADO</span></td><td>Debe rechazar email y password vacios.</td><td><pre>Resultado esperado cumplido.</pre></td><td>Conservar la regla de validacion.</td></tr><tr><td><strong>Login con email invalido</strong><span class="small">Severidad: Alta</span></td><td><span class="estado ok">APROBADO</span></td><td>Debe detectar formato de correo incorrecto.</td><td><pre>Resultado esperado cumplido.</pre></td><td>Conservar la regla de validacion.</td></tr><tr><td><strong>Login valido</strong><span class="small">Severidad: Alta</span></td><td><span class="estado ok">APROBADO</span></td><td>Debe permitir credenciales con formato correcto.</td><td><pre>Resultado esperado cumplido.</pre></td><td>Conservar la regla de validacion.</td></tr><tr><td><strong>Registro vacio</strong><span class="small">Severidad: Alta</span></td><td><span class="estado ok">APROBADO</span></td><td>Debe exigir datos obligatorios para crear cuenta.</td><td><pre>Resultado esperado cumplido.</pre></td><td>Conservar la regla de validacion.</td></tr><tr><td><strong>Registro con password corto</strong><span class="small">Severidad: Alta</span></td><td><span class="estado ok">APROBADO</span></td><td>Debe exigir longitud minima de password.</td><td><pre>Resultado esperado cumplido.</pre></td><td>Conservar la regla de validacion.</td></tr><tr><td><strong>Registro con passwords diferentes</strong><span class="small">Severidad: Alta</span></td><td><span class="estado ok">APROBADO</span></td><td>Debe rechazar passwords no coincidentes.</td><td><pre>Resultado esperado cumplido.</pre></td><td>Conservar la regla de validacion.</td></tr><tr><td><strong>Registro valido</strong><span class="small">Severidad: Alta</span></td><td><span class="estado ok">APROBADO</span></td><td>Debe aceptar una cuenta con datos completos.</td><td><pre>Resultado esperado cumplido.</pre></td><td>Conservar la regla de validacion.</td></tr><tr><td><strong>Validacion directa de email</strong><span class="small">Severidad: Alta</span></td><td><span class="estado ok">APROBADO</span></td><td>Debe validar formato de email en recuperacion o registro.</td><td><pre>Resultado esperado cumplido.</pre></td><td>Conservar la regla de validacion.</td></tr><tr><td><strong>Validacion directa de password</strong><span class="small">Severidad: Alta</span></td><td><span class="estado ok">APROBADO</span></td><td>Debe rechazar passwords menores a 6 caracteres.</td><td><pre>Resultado esperado cumplido.</pre></td><td>Conservar la regla de validacion.</td></tr><tr><td><strong>Hash seguro de password</strong><span class="small">Severidad: Alta</span></td><td><span class="estado ok">APROBADO</span></td><td>Debe almacenar hash y no el texto plano.</td><td><pre>Resultado esperado cumplido.</pre></td><td>Conservar la regla de validacion.</td></tr><tr><td><strong>Creacion de token</strong><span class="small">Severidad: Alta</span></td><td><span class="estado ok">APROBADO</span></td><td>Debe generar un token no vacio.</td><td><pre>Resultado esperado cumplido.</pre></td><td>Conservar la regla de validacion.</td></tr><tr><td><strong>Robustez del token de usuario</strong><span class="small">Severidad: Media</span></td><td><span class="estado warn">ADVERTENCIA</span></td><td>El modelo genera token con uniqid(). Funciona, pero no es la opcion mas fuerte para seguridad.</td><td><pre>models/Usuario.php -&gt; crearToken() usa uniqid()</pre></td><td>Para seguridad mayor, reemplazar por bin2hex(random_bytes(16)).</td></tr></tbody>
+  </table>
+  <div class="pie">Reporte generado automaticamente por el script de pruebas correspondiente a esta categoria. Conservar como evidencia de la ejecucion.</div>
+</div>
+</body></html>

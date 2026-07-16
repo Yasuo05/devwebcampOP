@@ -1,0 +1,210 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>05. Reporte de seguridad estatica</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#e9e9e9;font-family:Calibri,"Segoe UI",Arial,sans-serif;color:#222;line-height:1.5}
+.page{max-width:960px;margin:26px auto 60px;background:#ffffff;padding:46px 56px;border:1px solid #c9c9c9;box-shadow:0 1px 4px rgba(0,0,0,.15)}
+.folio{text-align:right;font-size:11px;color:#666;margin-bottom:2px}
+.encabezado{border-bottom:3px double #333;padding-bottom:12px;margin-bottom:18px}
+.encabezado h1{margin:0 0 4px;font-size:20px;font-weight:700;color:#111}
+.encabezado .desc{font-size:13px;color:#444;margin:0}
+.datos-generales{width:100%;border-collapse:collapse;margin:14px 0 22px;font-size:13px}
+.datos-generales td{padding:5px 8px;border:1px solid #ccc;vertical-align:top}
+.datos-generales td.et{background:#f2f2f2;font-weight:700;width:190px}
+h2.tit{font-size:15px;margin:26px 0 8px;padding-bottom:4px;border-bottom:1px solid #999;color:#111}
+.resumen-tabla{width:100%;border-collapse:collapse;margin-bottom:6px;font-size:13px}
+.resumen-tabla th{background:#333;color:#fff;padding:7px 8px;text-align:left;font-weight:600}
+.resumen-tabla td{padding:7px 8px;border:1px solid #ccc}
+.conclusion{margin-top:10px;padding:10px 12px;border:1px solid #ccc;border-left:4px solid #555;background:#fafafa;font-size:13px}
+table.detalle{width:100%;border-collapse:collapse;margin-top:8px;font-size:12.5px}
+table.detalle th{background:#e6e6e6;color:#222;padding:7px 8px;text-align:left;border:1px solid #bbb;font-weight:700}
+table.detalle td{padding:7px 8px;border:1px solid #ccc;vertical-align:top}
+table.detalle tr:nth-child(even){background:#fafafa}
+.small{display:block;color:#666;font-size:11px;margin-top:3px}
+.estado{font-weight:700}
+.estado.ok{color:#1a6b3c}
+.estado.fail{color:#a3251d}
+.estado.warn{color:#946200}
+.estado.skip{color:#555}
+pre{white-space:pre-wrap;word-break:break-word;margin:0;background:#f5f5f0;border:1px solid #ddd;padding:6px 8px;max-height:210px;overflow:auto;font-family:Consolas,"Courier New",monospace;font-size:11.5px;color:#333}
+.pie{margin-top:34px;padding-top:12px;border-top:1px solid #ccc;font-size:11px;color:#777}
+@media print{body{background:#fff}.page{box-shadow:none;border:none;margin:0;padding:20px}}
+@media(max-width:800px){.page{padding:22px 18px}table.detalle{display:block;overflow-x:auto}}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="folio">Folio interno: PS-20260707-1532</div>
+  <div class="encabezado">
+    <h1>05. Reporte de seguridad estatica</h1>
+    <p class="desc">Busca patrones de riesgo en el codigo fuente: entradas no controladas, tokens debiles, redirecciones incompletas y exposicion de configuracion.</p>
+  </div>
+
+  <table class="datos-generales">
+    <tr><td class="et">Categoria evaluada</td><td>Seguridad</td></tr>
+    <tr><td class="et">Proyecto evaluado</td><td>C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio</td></tr>
+    <tr><td class="et">Fecha de ejecucion</td><td>07/07/2026 15:32:49</td></tr>
+    <tr><td class="et">Duracion del proceso</td><td>00:00:00.9713399</td></tr>
+  </table>
+
+  <h2 class="tit">1. Resumen de resultados</h2>
+  <table class="resumen-tabla">
+    <tr><th>Criterios evaluados</th><th>Aprobados</th><th>Fallos</th><th>Advertencias</th></tr>
+    <tr><td>8</td><td>2</td><td>0</td><td>6</td></tr>
+  </table>
+  <div class="conclusion">La prueba no encontro fallos criticos, pero si advertencias que conviene corregir para mejorar la calidad del sistema.</div>
+
+  <h2 class="tit">2. Detalle de verificaciones</h2>
+  <table class="detalle">
+    <thead><tr><th style="width:20%">Criterio</th><th style="width:11%">Estado</th><th style="width:23%">Detalle</th><th style="width:26%">Evidencia</th><th style="width:20%">Recomendacion</th></tr></thead>
+    <tbody>
+    <tr>
+<td><strong>Archivo .env dentro del proyecto</strong><span class='small'>Severidad: Alta</span></td>
+<td><span class='estado warn'>ADVERTENCIA</span></td>
+<td>El archivo .env existe dentro de includes. En produccion no debe compartirse con credenciales reales.</td>
+<td><pre>C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\includes\.env</pre></td>
+<td>Usar .env.example para compartir y excluir .env con .gitignore.</td>
+</tr>
+<tr>
+<td><strong>Entradas directas del usuario</strong><span class='small'>Severidad: Alta</span></td>
+<td><span class='estado warn'>ADVERTENCIA</span></td>
+<td>Se detectaron accesos directos a GET/POST/REQUEST/COOKIE. No siempre es falla, pero requiere validacion.</td>
+<td><pre>C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\APIEventos.php:9 -&gt; $dia_id = $_GET[&#39;dia_id&#39;] ?? &#39;&#39;;
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\APIEventos.php:10 -&gt; $categoria_id = $_GET[&#39;categoria_id&#39;] ?? &#39;&#39;;
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\APIPonentes.php:14 -&gt; $id = $_GET[&#39;id&#39;];
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\AuthController.php:16 -&gt; $usuario = new Usuario($_POST);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\AuthController.php:27 -&gt; if (password_verify($_POST[&#39;password&#39;], $usuario-&gt;password)) {
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\AuthController.php:59 -&gt; $token = $_GET[&#39;token&#39;] ?? null;
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\AuthController.php:115 -&gt; $usuario-&gt;sincronizar($_POST);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\AuthController.php:163 -&gt; $usuario = new Usuario($_POST);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\AuthController.php:207 -&gt; $token = s($_GET[&#39;token&#39;]);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\AuthController.php:225 -&gt; $usuario-&gt;sincronizar($_POST);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\AuthController.php:276 -&gt; $token = s($_GET[&#39;token&#39;]);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\EventosController.php:18 -&gt; $pagina_actual = $_GET[&#39;page&#39;];
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\EventosController.php:73 -&gt; $evento-&gt;sincronizar($_POST);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\EventosController.php:108 -&gt; $id= $_GET[&#39;id&#39;];
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\EventosController.php:130 -&gt; $evento-&gt;sincronizar($_POST);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\EventosController.php:165 -&gt; $id = $_POST[&#39;id&#39;];
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\PonentesController.php:17 -&gt; $pagina_actual = $_GET[&#39;page&#39;];
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\PonentesController.php:73 -&gt; $_POST[&#39;imagen&#39;] = $nombre_imagen;
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\PonentesController.php:76 -&gt; $_POST[&#39;redes&#39;] = json_encode($_POST[&#39;redes&#39;], JSON_UNESCAPED_SLASHES);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\PonentesController.php:78 -&gt; $ponente-&gt;sincronizar($_POST);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\PonentesController.php:112 -&gt; $id = $_GET[&#39;id&#39;];
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\PonentesController.php:144 -&gt; $_POST[&#39;imagen&#39;] = $nombre_imagen;
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\PonentesController.php:146 -&gt; $_POST[&#39;imagen&#39;] = $ponente-&gt;imagen_actual;
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\PonentesController.php:149 -&gt; $_POST[&#39;redes&#39;] = json_encode($_POST[&#39;redes&#39;], JSON_UNESCAPED_SLASHES);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\PonentesController.php:151 -&gt; $ponente-&gt;sincronizar($_POST);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\PonentesController.php:184 -&gt; $id = $_POST[&#39;id&#39;];
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\RegistradosController.php:20 -&gt; $pagina_actual = $_GET[&#39;page&#39;];
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\RegistroController.php:85 -&gt; $id = $_GET[&#39;id&#39;];
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\RegistroController.php:118 -&gt; if(empty($_POST)) {
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\RegistroController.php:124 -&gt; $datos = $_POST;</pre></td>
+<td>Validar, sanear y tipar los datos antes de usarlos en consultas o decisiones.</td>
+</tr>
+<tr>
+<td><strong>Generacion de tokens aleatorios</strong><span class='small'>Severidad: Media</span></td>
+<td><span class='estado warn'>ADVERTENCIA</span></td>
+<td>Se detectaron funciones predecibles o antiguas para tokens/aleatorios.</td>
+<td><pre>C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\PonentesController.php:71 -&gt; $nombre_imagen = md5(uniqid(rand(), true));
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\PonentesController.php:142 -&gt; $nombre_imagen = md5(uniqid(rand(), true));
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\RegistroController.php:61 -&gt; $token = substr( md5(uniqid( rand(), true )), 0, 8);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\RegistroController.php:125 -&gt; $datos[&#39;token&#39;] = substr( md5(uniqid( rand(), true )), 0, 8);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\includes\funciones.php:34 -&gt; $efecto = array_rand($efectos, 1);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\models\Usuario.php:129 -&gt; $this-&gt;token = uniqid();
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\pruebas\03_unitarias_validaciones.php:67 -&gt; if (strpos($source, &#39;uniqid(&#39;) !== false) {
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\pruebas\03_unitarias_validaciones.php:68 -&gt; add_check(&#39;Robustez del token de usuario&#39;, &#39;ADVERTENCIA&#39;, &#39;Media&#39;, &#39;El modelo genera token con uniqid(). Funciona, pero no es la opcion mas fuerte para seguridad.&#39;, &#39;models/Usuario.php -&gt; crearToken() usa uniqid()&#39;, &#39;Para seguridad mayor, reemplazar por bin2hex(random_bytes(16)).&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\pruebas\03_unitarias_validaciones.php:70 -&gt; add_check(&#39;Robustez del token de usuario&#39;, &#39;APROBADO&#39;, &#39;Media&#39;, &#39;No se detecto uso de uniqid() en el token del usuario.&#39;, &#39;Sin hallazgos&#39;, &#39;Mantener generacion criptograficamente segura.&#39;);</pre></td>
+<td>Reemplazar tokens sensibles por bin2hex(random_bytes(16)) o equivalente.</td>
+</tr>
+<tr>
+<td><strong>Proteccion CSRF en formularios</strong><span class='small'>Severidad: Alta</span></td>
+<td><span class='estado warn'>ADVERTENCIA</span></td>
+<td>No se detecto evidencia clara de tokens CSRF.</td>
+<td><pre>Busqueda: csrf, CSRF, token_csrf</pre></td>
+<td>Agregar token CSRF en formularios POST criticos.</td>
+</tr>
+<tr>
+<td><strong>Manejo de contrasenias</strong><span class='small'>Severidad: Alta</span></td>
+<td><span class='estado ok'>APROBADO</span></td>
+<td>Se detecto uso de password_hash y password_verify.</td>
+<td><pre>C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\models\Usuario.php:123 -&gt; $this-&gt;password = password_hash($this-&gt;password, PASSWORD_BCRYPT);</pre></td>
+<td>Mantener hashing seguro de contrasenias.</td>
+</tr>
+<tr>
+<td><strong>Consultas preparadas</strong><span class='small'>Severidad: Alta</span></td>
+<td><span class='estado ok'>APROBADO</span></td>
+<td>Se detecta uso de prepare() en consultas.</td>
+<td><pre>Coincidencias: 9</pre></td>
+<td>Mantener bindParam o parametros para entradas de usuario.</td>
+</tr>
+<tr>
+<td><strong>Exposicion de errores internos</strong><span class='small'>Severidad: Media</span></td>
+<td><span class='estado warn'>ADVERTENCIA</span></td>
+<td>Se detecto getMessage(). Puede exponer informacion tecnica si se imprime al usuario.</td>
+<td><pre>C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\includes\database.php:49 -&gt; &#39;Error de conexi&#243;n: &#39; . $e-&gt;getMessage()
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\models\ActiveRecord.php:135 -&gt; echo &quot;Error: &quot; . $e-&gt;getMessage();
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\models\ActiveRecord.php:168 -&gt; echo &quot;Error: &quot; . $e-&gt;getMessage();
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\models\ActiveRecord.php:215 -&gt; echo &quot;Error: &quot; . $e-&gt;getMessage();
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\models\ActiveRecord.php:241 -&gt; echo &quot;Error: &quot; . $e-&gt;getMessage();
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\models\ActiveRecord.php:267 -&gt; echo &quot;Error: &quot; . $e-&gt;getMessage();
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\models\ActiveRecord.php:301 -&gt; echo &quot;Error: &quot; . $e-&gt;getMessage();
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\models\ActiveRecord.php:338 -&gt; echo &quot;Error: &quot; . $e-&gt;getMessage();
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\models\ActiveRecord.php:355 -&gt; echo &quot;Error: &quot; . $e-&gt;getMessage();
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\pruebas\03_unitarias_validaciones.php:61 -&gt; add_check($nombre, &#39;FALLO&#39;, &#39;Alta&#39;, $detalle, $e-&gt;getMessage(), &#39;Corregir la excepcion y volver a ejecutar las unitarias.&#39;);</pre></td>
+<td>Usar logs internos y mensajes genericos en pantalla.</td>
+</tr>
+<tr>
+<td><strong>Redirecciones con corte de ejecucion</strong><span class='small'>Severidad: Media</span></td>
+<td><span class='estado warn'>ADVERTENCIA</span></td>
+<td>Hay redirecciones que podrian seguir ejecutando codigo despues del header.</td>
+<td><pre>C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\Router.php:35 -&gt; header(&#39;Location:/404&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\AuthController.php:85 -&gt; header(&#39;Location: /admin/dashboard&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\AuthController.php:104 -&gt; header(&#39;Location: /&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\AuthController.php:144 -&gt; header(&#39;Location: /mensaje&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\AuthController.php:211 -&gt; if (!$token) header(&#39;Location: /&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\AuthController.php:242 -&gt; header(&#39;Location: /login&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\AuthController.php:278 -&gt; if (!$token) header(&#39;Location: /&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\EventosController.php:16 -&gt; header(&#39;Location: /login&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\EventosController.php:22 -&gt; header(&#39;Location: /admin/eventos?page=1&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\EventosController.php:52 -&gt; header(&#39;Location: /login&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\EventosController.php:71 -&gt; header(&#39;Location: /login&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\EventosController.php:80 -&gt; header(&#39;Location: /admin/eventos&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\EventosController.php:104 -&gt; header(&#39;Location: /login&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\EventosController.php:112 -&gt; header(&#39;Location: /admin/eventos&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\EventosController.php:123 -&gt; header(&#39;Location: /admin/eventos&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\EventosController.php:128 -&gt; header(&#39;Location: /login&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\EventosController.php:137 -&gt; header(&#39;Location: /admin/eventos&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\EventosController.php:162 -&gt; header(&#39;Location: /login&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\EventosController.php:169 -&gt; header(&#39;Location: /admin/eventos&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\EventosController.php:174 -&gt; header(&#39;Location: /admin/eventos&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\PonentesController.php:20 -&gt; header(&#39;Location: /admin/ponentes?page=1&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\PonentesController.php:29 -&gt; header(&#39;Location: /admin/ponentes?page=1&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\PonentesController.php:37 -&gt; header(&#39;Location: /login&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\PonentesController.php:51 -&gt; header(&#39;Location: /login&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\PonentesController.php:58 -&gt; header(&#39;Location: /login&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\PonentesController.php:91 -&gt; header(&#39;Location: /admin/ponentes&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\PonentesController.php:108 -&gt; header(&#39;Location: /login&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\PonentesController.php:116 -&gt; header(&#39;Location:/admin/ponentes&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\PonentesController.php:123 -&gt; header(&#39;Location:/admin/ponentes&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\PonentesController.php:130 -&gt; header(&#39;Location: /login&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\PonentesController.php:164 -&gt; header(&#39;Location: /admin/ponentes&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\PonentesController.php:182 -&gt; header(&#39;Location: /login&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\PonentesController.php:188 -&gt; header(&#39;Location: /admin/ponentes&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\PonentesController.php:193 -&gt; header(&#39;Location: /admin/ponentes&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\RegistradosController.php:15 -&gt; header(&#39;Location: /login&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\RegistradosController.php:24 -&gt; header(&#39;Location: /admin/registrados?page=1&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\RegistradosController.php:32 -&gt; header(&#39;Location: /admin/registrados?page=1&#39;);</pre></td>
+<td>Agregar exit; o return; despues de header(&#39;Location: ...&#39;).</td>
+</tr>
+
+    </tbody>
+  </table>
+
+  <div class="pie">Reporte generado automaticamente por el script de pruebas correspondiente a esta categoria. Conservar como evidencia de la ejecucion.</div>
+</div>
+</body>
+</html>

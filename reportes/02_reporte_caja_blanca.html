@@ -1,0 +1,123 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>02. Reporte de caja blanca - revision interna PHP</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#e9e9e9;font-family:Calibri,"Segoe UI",Arial,sans-serif;color:#222;line-height:1.5}
+.page{max-width:960px;margin:26px auto 60px;background:#ffffff;padding:46px 56px;border:1px solid #c9c9c9;box-shadow:0 1px 4px rgba(0,0,0,.15)}
+.folio{text-align:right;font-size:11px;color:#666;margin-bottom:2px}
+.encabezado{border-bottom:3px double #333;padding-bottom:12px;margin-bottom:18px}
+.encabezado h1{margin:0 0 4px;font-size:20px;font-weight:700;color:#111}
+.encabezado .desc{font-size:13px;color:#444;margin:0}
+.datos-generales{width:100%;border-collapse:collapse;margin:14px 0 22px;font-size:13px}
+.datos-generales td{padding:5px 8px;border:1px solid #ccc;vertical-align:top}
+.datos-generales td.et{background:#f2f2f2;font-weight:700;width:190px}
+h2.tit{font-size:15px;margin:26px 0 8px;padding-bottom:4px;border-bottom:1px solid #999;color:#111}
+.resumen-tabla{width:100%;border-collapse:collapse;margin-bottom:6px;font-size:13px}
+.resumen-tabla th{background:#333;color:#fff;padding:7px 8px;text-align:left;font-weight:600}
+.resumen-tabla td{padding:7px 8px;border:1px solid #ccc}
+.conclusion{margin-top:10px;padding:10px 12px;border:1px solid #ccc;border-left:4px solid #555;background:#fafafa;font-size:13px}
+table.detalle{width:100%;border-collapse:collapse;margin-top:8px;font-size:12.5px}
+table.detalle th{background:#e6e6e6;color:#222;padding:7px 8px;text-align:left;border:1px solid #bbb;font-weight:700}
+table.detalle td{padding:7px 8px;border:1px solid #ccc;vertical-align:top}
+table.detalle tr:nth-child(even){background:#fafafa}
+.small{display:block;color:#666;font-size:11px;margin-top:3px}
+.estado{font-weight:700}
+.estado.ok{color:#1a6b3c}
+.estado.fail{color:#a3251d}
+.estado.warn{color:#946200}
+.estado.skip{color:#555}
+pre{white-space:pre-wrap;word-break:break-word;margin:0;background:#f5f5f0;border:1px solid #ddd;padding:6px 8px;max-height:210px;overflow:auto;font-family:Consolas,"Courier New",monospace;font-size:11.5px;color:#333}
+.pie{margin-top:34px;padding-top:12px;border-top:1px solid #ccc;font-size:11px;color:#777}
+@media print{body{background:#fff}.page{box-shadow:none;border:none;margin:0;padding:20px}}
+@media(max-width:800px){.page{padding:22px 18px}table.detalle{display:block;overflow-x:auto}}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="folio">Folio interno: PS-20260707-1532</div>
+  <div class="encabezado">
+    <h1>02. Reporte de caja blanca - revision interna PHP</h1>
+    <p class="desc">Analiza la sintaxis de archivos PHP y senales internas de mantenibilidad sin usar la interfaz del usuario.</p>
+  </div>
+
+  <table class="datos-generales">
+    <tr><td class="et">Categoria evaluada</td><td>Caja blanca</td></tr>
+    <tr><td class="et">Proyecto evaluado</td><td>C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio</td></tr>
+    <tr><td class="et">Fecha de ejecucion</td><td>07/07/2026 15:32:34</td></tr>
+    <tr><td class="et">Duracion del proceso</td><td>00:00:07.3326331</td></tr>
+  </table>
+
+  <h2 class="tit">1. Resumen de resultados</h2>
+  <table class="resumen-tabla">
+    <tr><th>Criterios evaluados</th><th>Aprobados</th><th>Fallos</th><th>Advertencias</th></tr>
+    <tr><td>6</td><td>4</td><td>0</td><td>2</td></tr>
+  </table>
+  <div class="conclusion">La prueba no encontro fallos criticos, pero si advertencias que conviene corregir para mejorar la calidad del sistema.</div>
+
+  <h2 class="tit">2. Detalle de verificaciones</h2>
+  <table class="detalle">
+    <thead><tr><th style="width:20%">Criterio</th><th style="width:11%">Estado</th><th style="width:23%">Detalle</th><th style="width:26%">Evidencia</th><th style="width:20%">Recomendacion</th></tr></thead>
+    <tbody>
+    <tr>
+<td><strong>Archivos PHP detectados</strong><span class='small'>Severidad: Media</span></td>
+<td><span class='estado ok'>APROBADO</span></td>
+<td>Se encontraron archivos PHP para revision interna.</td>
+<td><pre>Cantidad: 66</pre></td>
+<td>Mantener la revision de sintaxis en cada entrega.</td>
+</tr>
+<tr>
+<td><strong>Sintaxis PHP</strong><span class='small'>Severidad: Alta</span></td>
+<td><span class='estado ok'>APROBADO</span></td>
+<td>Todos los archivos PHP pasaron php -l.</td>
+<td><pre>Archivos revisados: 66</pre></td>
+<td>Continuar ejecutando esta prueba antes de presentar el sistema.</td>
+</tr>
+<tr>
+<td><strong>Tamanio de archivos</strong><span class='small'>Severidad: Media</span></td>
+<td><span class='estado warn'>ADVERTENCIA</span></td>
+<td>Hay archivos grandes que pueden ser dificiles de mantener.</td>
+<td><pre>C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\models\ActiveRecord.php -&gt; 359 lineas</pre></td>
+<td>Dividir responsabilidades o extraer funciones si el archivo crece mas.</td>
+</tr>
+<tr>
+<td><strong>Separacion MVC</strong><span class='small'>Severidad: Alta</span></td>
+<td><span class='estado ok'>APROBADO</span></td>
+<td>El proyecto mantiene carpetas de controladores y modelos.</td>
+<td><pre>Controllers: 11
+Models: 12</pre></td>
+<td>Mantener la logica de negocio separada de las vistas.</td>
+</tr>
+<tr>
+<td><strong>Codigo de depuracion pendiente</strong><span class='small'>Severidad: Media</span></td>
+<td><span class='estado warn'>ADVERTENCIA</span></td>
+<td>Se detectaron marcas o salidas de depuracion.</td>
+<td><pre>C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\AuthController.php:29 -&gt; $usuario-&gt;crearToken(); // M&#233;todo que actualiza el token en la base de datos
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\controllers\PaginasController.php:46 -&gt; // Obtener todos los ponentes
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\includes\database.php:43 -&gt; print_r($resultado);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\includes\funciones.php:5 -&gt; var_dump($variable);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\models\ActiveRecord.php:115 -&gt; // Obtener todos los Registros
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\pruebas\03_unitarias_validaciones.php:59 -&gt; add_check($nombre, $ok ? &#39;APROBADO&#39; : &#39;FALLO&#39;, &#39;Alta&#39;, $detalle, $ok ? &#39;Resultado esperado cumplido.&#39; : &#39;La condicion esperada no se cumplio.&#39;, $ok ? &#39;Conservar la regla de validacion.&#39; : &#39;Revisar el metodo del modelo Usuario relacionado con esta validacion.&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\pruebas\03_unitarias_validaciones.php:80 -&gt; $conclusion = $failed &gt; 0 ? &#39;Hay pruebas unitarias fallidas que deben corregirse en los metodos de validacion.&#39; : ($warnings &gt; 0 ? &#39;Las validaciones principales pasaron, pero existen advertencias tecnicas que conviene mejorar.&#39; : &#39;Las validaciones unitarias principales fueron aprobadas.&#39;);
+C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\views\templates\footer.php:39 -&gt; -Todos los derechos reservados &lt;?php echo date(&#39;Y&#39;); ?&gt;</pre></td>
+<td>Retirar o justificar estas lineas antes de entregar.</td>
+</tr>
+<tr>
+<td><strong>Inventario interno de clases y funciones</strong><span class='small'>Severidad: Baja</span></td>
+<td><span class='estado ok'>APROBADO</span></td>
+<td>Se genero un conteo tecnico del codigo PHP.</td>
+<td><pre>Clases: 26
+Funciones/metodos: 102</pre></td>
+<td>Usar este inventario para sustentar la revision estructural.</td>
+</tr>
+
+    </tbody>
+  </table>
+
+  <div class="pie">Reporte generado automaticamente por el script de pruebas correspondiente a esta categoria. Conservar como evidencia de la ejecucion.</div>
+</div>
+</body>
+</html>

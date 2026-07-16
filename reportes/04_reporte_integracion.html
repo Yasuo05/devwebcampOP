@@ -1,0 +1,135 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>04. Reporte de integracion MVC</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#e9e9e9;font-family:Calibri,"Segoe UI",Arial,sans-serif;color:#222;line-height:1.5}
+.page{max-width:960px;margin:26px auto 60px;background:#ffffff;padding:46px 56px;border:1px solid #c9c9c9;box-shadow:0 1px 4px rgba(0,0,0,.15)}
+.folio{text-align:right;font-size:11px;color:#666;margin-bottom:2px}
+.encabezado{border-bottom:3px double #333;padding-bottom:12px;margin-bottom:18px}
+.encabezado h1{margin:0 0 4px;font-size:20px;font-weight:700;color:#111}
+.encabezado .desc{font-size:13px;color:#444;margin:0}
+.datos-generales{width:100%;border-collapse:collapse;margin:14px 0 22px;font-size:13px}
+.datos-generales td{padding:5px 8px;border:1px solid #ccc;vertical-align:top}
+.datos-generales td.et{background:#f2f2f2;font-weight:700;width:190px}
+h2.tit{font-size:15px;margin:26px 0 8px;padding-bottom:4px;border-bottom:1px solid #999;color:#111}
+.resumen-tabla{width:100%;border-collapse:collapse;margin-bottom:6px;font-size:13px}
+.resumen-tabla th{background:#333;color:#fff;padding:7px 8px;text-align:left;font-weight:600}
+.resumen-tabla td{padding:7px 8px;border:1px solid #ccc}
+.conclusion{margin-top:10px;padding:10px 12px;border:1px solid #ccc;border-left:4px solid #555;background:#fafafa;font-size:13px}
+table.detalle{width:100%;border-collapse:collapse;margin-top:8px;font-size:12.5px}
+table.detalle th{background:#e6e6e6;color:#222;padding:7px 8px;text-align:left;border:1px solid #bbb;font-weight:700}
+table.detalle td{padding:7px 8px;border:1px solid #ccc;vertical-align:top}
+table.detalle tr:nth-child(even){background:#fafafa}
+.small{display:block;color:#666;font-size:11px;margin-top:3px}
+.estado{font-weight:700}
+.estado.ok{color:#1a6b3c}
+.estado.fail{color:#a3251d}
+.estado.warn{color:#946200}
+.estado.skip{color:#555}
+pre{white-space:pre-wrap;word-break:break-word;margin:0;background:#f5f5f0;border:1px solid #ddd;padding:6px 8px;max-height:210px;overflow:auto;font-family:Consolas,"Courier New",monospace;font-size:11.5px;color:#333}
+.pie{margin-top:34px;padding-top:12px;border-top:1px solid #ccc;font-size:11px;color:#777}
+@media print{body{background:#fff}.page{box-shadow:none;border:none;margin:0;padding:20px}}
+@media(max-width:800px){.page{padding:22px 18px}table.detalle{display:block;overflow-x:auto}}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="folio">Folio interno: PS-20260707-1532</div>
+  <div class="encabezado">
+    <h1>04. Reporte de integracion MVC</h1>
+    <p class="desc">Comprueba que rutas, controladores, metodos, vistas y archivos base esten conectados de forma coherente.</p>
+  </div>
+
+  <table class="datos-generales">
+    <tr><td class="et">Categoria evaluada</td><td>Integracion</td></tr>
+    <tr><td class="et">Proyecto evaluado</td><td>C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio</td></tr>
+    <tr><td class="et">Fecha de ejecucion</td><td>07/07/2026 15:32:42</td></tr>
+    <tr><td class="et">Duracion del proceso</td><td>00:00:00.1403810</td></tr>
+  </table>
+
+  <h2 class="tit">1. Resumen de resultados</h2>
+  <table class="resumen-tabla">
+    <tr><th>Criterios evaluados</th><th>Aprobados</th><th>Fallos</th><th>Advertencias</th></tr>
+    <tr><td>9</td><td>9</td><td>0</td><td>0</td></tr>
+  </table>
+  <div class="conclusion">La prueba fue aprobada en los criterios evaluados. Conserve este reporte como evidencia tecnica.</div>
+
+  <h2 class="tit">2. Detalle de verificaciones</h2>
+  <table class="detalle">
+    <thead><tr><th style="width:20%">Criterio</th><th style="width:11%">Estado</th><th style="width:23%">Detalle</th><th style="width:26%">Evidencia</th><th style="width:20%">Recomendacion</th></tr></thead>
+    <tbody>
+    <tr>
+<td><strong>Rutas declaradas</strong><span class='small'>Severidad: Alta</span></td>
+<td><span class='estado ok'>APROBADO</span></td>
+<td>Se encontraron rutas GET/POST declaradas en public/index.php.</td>
+<td><pre>Cantidad de rutas: 43</pre></td>
+<td>Mantener las rutas centralizadas y documentadas.</td>
+</tr>
+<tr>
+<td><strong>Controladores enlazados a rutas</strong><span class='small'>Severidad: Alta</span></td>
+<td><span class='estado ok'>APROBADO</span></td>
+<td>Todas las rutas apuntan a controladores existentes.</td>
+<td><pre>Rutas revisadas: 1</pre></td>
+<td>Mantener nombres de clases y archivos consistentes.</td>
+</tr>
+<tr>
+<td><strong>Metodos de controlador</strong><span class='small'>Severidad: Alta</span></td>
+<td><span class='estado ok'>APROBADO</span></td>
+<td>Los metodos usados por las rutas existen en sus controladores.</td>
+<td><pre>Rutas revisadas: 1</pre></td>
+<td>Evitar renombrar metodos sin actualizar la ruta.</td>
+</tr>
+<tr>
+<td><strong>Vistas usadas por controladores</strong><span class='small'>Severidad: Alta</span></td>
+<td><span class='estado ok'>APROBADO</span></td>
+<td>Todas las vistas referenciadas por render() existen.</td>
+<td><pre>Vistas revisadas: 24</pre></td>
+<td>Mantener sincronizados controladores y vistas.</td>
+</tr>
+<tr>
+<td><strong>Dependencia de integracion: includes\app.php</strong><span class='small'>Severidad: Media</span></td>
+<td><span class='estado ok'>APROBADO</span></td>
+<td>Archivo disponible.</td>
+<td><pre>C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\includes\app.php</pre></td>
+<td>Conservar para que la integracion cargue correctamente.</td>
+</tr>
+<tr>
+<td><strong>Dependencia de integracion: includes\database.php</strong><span class='small'>Severidad: Media</span></td>
+<td><span class='estado ok'>APROBADO</span></td>
+<td>Archivo disponible.</td>
+<td><pre>C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\includes\database.php</pre></td>
+<td>Conservar para que la integracion cargue correctamente.</td>
+</tr>
+<tr>
+<td><strong>Dependencia de integracion: models\ActiveRecord.php</strong><span class='small'>Severidad: Media</span></td>
+<td><span class='estado ok'>APROBADO</span></td>
+<td>Archivo disponible.</td>
+<td><pre>C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\models\ActiveRecord.php</pre></td>
+<td>Conservar para que la integracion cargue correctamente.</td>
+</tr>
+<tr>
+<td><strong>Dependencia de integracion: Router.php</strong><span class='small'>Severidad: Media</span></td>
+<td><span class='estado ok'>APROBADO</span></td>
+<td>Archivo disponible.</td>
+<td><pre>C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\Router.php</pre></td>
+<td>Conservar para que la integracion cargue correctamente.</td>
+</tr>
+<tr>
+<td><strong>Dependencia de integracion: vendor\autoload.php</strong><span class='small'>Severidad: Media</span></td>
+<td><span class='estado ok'>APROBADO</span></td>
+<td>Archivo disponible.</td>
+<td><pre>C:\Users\PC\Downloads\DevWebCamp_ligero_para_compartir\DevWebCamp_inicio\vendor\autoload.php</pre></td>
+<td>Conservar para que la integracion cargue correctamente.</td>
+</tr>
+
+    </tbody>
+  </table>
+
+  <div class="pie">Reporte generado automaticamente por el script de pruebas correspondiente a esta categoria. Conservar como evidencia de la ejecucion.</div>
+</div>
+</body>
+</html>
